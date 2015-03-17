@@ -1,0 +1,41 @@
+html, body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font: 14px Arial;
+    background-color: #999;
+}
+#container {
+    width: 1000px;
+    margin: 10px auto;
+}
+#title {
+    color:#A1FFFF;
+    font-size:18px;
+    font-weight:700;
+}
+ul#toolbox {
+    list-style-type:none;
+	margin:0px;
+	padding:5px 0;
+}
+ul#toolbox  li a, ul#toolbox  li a:visited {
+    text-decoration: none;
+    color: white;
+    margin:0px;
+	padding:5px;
+    display: block;
+    background-color: blue;
+    overflow: auto;
+}
+ul#toolbox li {
+    float: left;
+    overflow: auto;
+}
+ul#toolbox li a.active {
+	background-color: orange;
+}
+.whiteboard {
+    background-color: white;
+}

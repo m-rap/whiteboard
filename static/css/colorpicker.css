@@ -1,0 +1,59 @@
+#colorButton div {
+    float: left;
+}
+#activeColor {
+    margin-left: 5px;
+    width:  14px;
+    height: 14px;
+    border: 1px dashed #999;
+    background-color: #000;
+}
+#colorPicker {
+    position: absolute;
+    display: none;
+    background-color: orange;
+    padding: 5px 10px;
+}
+.colorPicker {
+    position: relative;
+    overflow: auto;
+}
+.palette {
+    float: left;
+    width: 256px;
+    height: 256px;
+    margin: 5px;
+    background-color: red;
+    overflow: auto;
+}
+.innerPalette {
+    position: absolute;
+    width: 256px;
+    height: 256px;
+    background-image: url(../images/bgGradient.png);
+}
+.paletteHandle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    top: 255px;
+    background-color: blue;
+    border: 1px solid white;
+}
+.hueBar {
+    float: left;
+    margin-left: 10px;
+    width: 25px;
+    height: 256px;
+    margin: 5px;
+    background-color: red;
+    background-image: url(../images/hueBar.png);
+    overflow: auto;
+}
+.hueBarHandle {
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: blue;
+    border: 1px solid white;
+}
