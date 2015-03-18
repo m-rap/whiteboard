@@ -72,10 +72,13 @@
                 </li>
             </ul>
             <div><canvas id="whiteboard1" class="whiteboard" width="1000" height="550"></canvas></div>
+            <div id="footer">
+                <a href="https://github.com/m-rap/whiteboard">GitHub</a>
+            </div>
         </div>
         <div id="popupContact">
             <h1>Welcome to Whiteboard Application</h1>
-            Please insert classroom name.
+            Please insert room name.
             <form action="<?php echo site_url(); ?>" method="get">
                 <table>
                     <tr>
