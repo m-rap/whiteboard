@@ -11,4 +11,8 @@ class Home extends CI_Controller {
         $this->roomModel->Create($roomName);
         $this->load->view('home', array('roomName' => $roomName));
     }
+    
+    public function test() {
+        
+    }
 }

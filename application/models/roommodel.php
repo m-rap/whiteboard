@@ -17,19 +17,52 @@ class RoomModel extends CI_Model {
     }
     
     public function Save($roomName, $data) {
-        $path = $this->GetDirPath($roomName) . '/data';
+        $version = intval($this->GetVersion($roomName));
+        $version++;
+        $path = $this->GetDirPath($roomName) . "/$version";
         @file_put_contents($path, json_encode($data));
         return $this->IncrementVersion($roomName);
     }
     
     public function Load($roomName, $version) {
-        $path = $this->GetDirPath($roomName) . '/data';
-        $currentVersion = $this->GetVersion($roomName);
+        $path = $this->GetDirPath($roomName);
+        $currentVersion = intval($this->GetVersion($roomName));
+        
         if ($currentVersion == $version) {
             return false;
         }
-        $data = json_decode(@file_get_contents($path));
-        $data->version = $currentVersion;
+        
+        $clientVersion = intval($version);
+        $data = array(
+            'sheets' => array(
+                0 => array(
+                    'id' => 0,
+                    'lines' => array()
+                ),
+            )
+        );
+        
+        for ($i = $clientVersion + 1; $i <= $currentVersion; $i++) {
+            $temp = json_decode(@file_get_contents("$path/$i"));
+            
+            if (!isset($temp->sheets))
+                continue;
+            
+            foreach ($temp->sheets as $tempEl) {
+                if (!isset($tempEl->id) || !isset($tempEl->lines))
+                    continue;
+                
+                foreach ($data['sheets'] as $key => $datum) {
+                    if ($datum['id'] == $tempEl->id) {                        
+                        foreach ($tempEl->lines as $tempLine) {
+                            $data['sheets'][$key]['lines'][] = $tempLine;
+                        }
+                    }
+                }
+            }
+        }
+        $data['version'] = $currentVersion;
+        
         return json_encode($data);
     }
     
