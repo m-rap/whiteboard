@@ -14,25 +14,25 @@ function WhiteBoard(id) {
     
     var that = this;
     this.canvas.addEventListener('mousedown', function(e) {
-        that.OnMouseDown(e);
+        that.OnMouseDown(e, that.canvas);
     });
     this.canvas.addEventListener('mousemove', function(e) {
-        that.OnMouseMove(e);
+        that.OnMouseMove(e, that.canvas);
     });
     document.addEventListener('mouseup', function(e) {
-        that.OnMouseUp(e);
+        that.OnMouseUp(e, that.canvas);
     });
 }
-WhiteBoard.prototype.OnMouseDown = function(e) {
-    var mousePos = getMousePos(e);
+WhiteBoard.prototype.OnMouseDown = function(e, elem) {
+    var mousePos = getMousePos(e, elem);
     this.currentState.MouseDown(mousePos.x, mousePos.y);
 }
-WhiteBoard.prototype.OnMouseMove = function(e) {
-    var mousePos = getMousePos(e);
+WhiteBoard.prototype.OnMouseMove = function(e, elem) {
+    var mousePos = getMousePos(e, elem);
     this.currentState.MouseMove(mousePos.x, mousePos.y);
 }
-WhiteBoard.prototype.OnMouseUp = function(e) {
-    var mousePos = getMousePos(e);
+WhiteBoard.prototype.OnMouseUp = function(e, elem) {
+    var mousePos = getMousePos(e, elem);
     this.currentState.MouseUp(mousePos.x, mousePos.y);
 }
 WhiteBoard.prototype.OnPaint = function() {

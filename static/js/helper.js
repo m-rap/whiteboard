@@ -1,7 +1,14 @@
-function getMousePos(evt) {
+function getMousePos(evt, elem) {
+    if (evt.offsetX == undefined) {
+        var relOff = getRelativeOffset(elem);
+        return {
+            x: evt.layerX - relOff.x,
+            y: evt.layerY - relOff.y
+        };
+    }
     return {
-        x: (evt.offsetX) ? evt.offsetX : ((evt.layerX) ? evt.layerX : null),
-        y: (evt.offsetY) ? evt.offsetY : ((evt.layerY) ? evt.layerY : null)
+        x: evt.offsetX,
+        y: evt.offsetY
     };
 }
 
