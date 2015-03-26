@@ -9,6 +9,10 @@ PencilState.prototype.mediator = null;
 PencilState.prototype.MouseDown = function(x, y) {
     this.origin = {x: x, y: y};
     this.isMouseDown = true;
+    var that = this;
+    setTimeout(function() {
+		that.RunAdding();
+	}, 500);
 }
 PencilState.prototype.MouseMove = function(x, y) {
     if (!this.isMouseDown)
@@ -25,14 +29,28 @@ PencilState.prototype.MouseUp = function(x, y) {
         this.isMouseDown = false;
         this.origin = null;
         var that = this;
-        this.mediator.trueModel.AddLines(this.mediator.model, this.helperLines, function() { that.helperLines = new Array(); });
+		var length = this.helperLines.length;
+		this.mediator.trueModel.AddLines(this.mediator.model, this.helperLines, function() {
+			that.helperLines.splice(0, length);
+		});
     }
 }
-
 PencilState.prototype.Draw = function(context) {
     for (i in this.helperLines) {
         drawLine(context, this.helperLines[i]);
     }
+}
+PencilState.prototype.RunAdding = function() {
+	if (!this.isMouseDown)
+		return;
+	var that = this;
+	var length = this.helperLines.length;
+	this.mediator.trueModel.AddLines(this.mediator.model, this.helperLines, function() {
+		that.helperLines.splice(0, length);
+	});
+	setTimeout(function() {
+		that.RunAdding();
+	}, 500);
 }
 
 implements(PencilState, IDrawingState);

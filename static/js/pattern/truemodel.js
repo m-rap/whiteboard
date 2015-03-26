@@ -8,9 +8,18 @@ function TrueModel() {
     this.roomName = null;
     this.autoUpdateStarted = false;
 }
+TrueModel.prototype.Sync = function(data) {
+	if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array) {
+		for (i in data.sheets) {
+			for (j in data.sheets[i].lines) {
+				this.sheets[i].lines.push(data.sheets[i].lines[j]);
+			}
+			this.sheets[i].Notify();
+		}
+		this.version = data.version;
+	}
+}
 TrueModel.prototype.AddLines = function(sheet, lines, onComplete) {
-    //sheet.lines.push(line);
-    //sheet.Notify();
     var data = {sheets:[new Sheet(null, sheet.id)]};
     for (i in lines)
         data.sheets[0].lines.push(lines[i]);
@@ -18,6 +27,8 @@ TrueModel.prototype.AddLines = function(sheet, lines, onComplete) {
     var that = this;
     $.post(that.saveUrl, JSON.parse(jsonString), function(version) {
         that.StopAutoUpdate();
+        data.version = version;
+        that.Sync(data);
         that.Load((typeof(onComplete) == 'function') ? onComplete() : function() {});
         setTimeout(function() {
             that.StartAutoUpdate();
@@ -27,15 +38,7 @@ TrueModel.prototype.AddLines = function(sheet, lines, onComplete) {
 TrueModel.prototype.Load = function(onComplete) {
     var that = this;
     $.get(this.loadUrl + '/' + this.version, function(data) {
-        if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array) {
-            for (i in data.sheets) {
-                for (j in data.sheets[i].lines) {
-                    that.sheets[i].lines.push(data.sheets[i].lines[j]);
-                }
-                that.sheets[i].Notify();
-            }
-            that.version = data.version;
-        }
+        that.Sync(data);
         if (typeof(onComplete) == 'function') onComplete();
     }, 'json');
 }
