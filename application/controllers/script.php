@@ -7,7 +7,7 @@ class Script extends CI_Controller {
     
     public function index() {
         header('Content-Type: text/javascript');
-        $this->TraverseScript(FCPATH . 'static/js/pattern/');
+        $this->TraverseScript(FCPATH . 'static/js/whiteboard/');
     }
     
     private function TraverseScript($dir) {
