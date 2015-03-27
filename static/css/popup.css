@@ -21,11 +21,17 @@
     padding:12px;
     font-size:13px;
 }
-#popupContact h1{
+/*#popupContact h1{
     text-align:center;
     color:#6FA5FD;
     font-size:18px;
     font-weight:700;
+}*/
+#popupContact h6 {
+	margin: 0px;
+}
+#popupContact td {
+	padding: 2px;
 }
 #popupContactClose{
     font-size:14px;
@@ -40,8 +46,8 @@
     display:block;
     cursor: pointer;
 }
-.popupText{
+/*.popupText{
     height:25px;
     font-size:18px;
     color: blue;
-}
+}*/

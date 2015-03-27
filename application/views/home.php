@@ -65,7 +65,8 @@
             </div>
             <a id="github" href="https://github.com/m-rap/whiteboard">GitHub</a>
             <div id="whiteboard-container"><canvas id="whiteboard1" class="whiteboard" width="1000" height="550"></canvas></div>
-            <div id="footer">
+            <div id="footer" class="footer">
+				Theme by <a href="http://designmodo.github.io/Flat-UI/docs/getting-started.html">Flat-UI</a>
             </div>
         </div>
         
@@ -83,7 +84,7 @@
 		</div>
         
         <div id="popupContact">
-            <h1>Welcome to Whiteboard Application</h1>
+            <h6>Whiteboard</h6>
             Please insert room name.
             <form action="<?php echo site_url(); ?>" method="get">
                 <table>
@@ -93,7 +94,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type="submit" name="submit" value="Submit" /></td>
+                        <td style="text-align: right;"><input type="submit" name="submit" value="Submit" /></td>
                     </tr>
                 </table>
             </form>

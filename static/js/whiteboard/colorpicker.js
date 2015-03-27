@@ -12,8 +12,7 @@ function ColorPicker(id, palette, hueBar, whiteBoard, buttonId) {
     this.button.addEventListener('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
-        //that.ToggleDiv();
-        that.Show();
+        that.ToggleDiv();
     });
     $('html').click(function() {
 		that.Hide();
