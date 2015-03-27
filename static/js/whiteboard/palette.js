@@ -22,7 +22,7 @@ function Palette(id) {
 
 Palette.prototype.OnMouseDown = function(e) {
     this.isMouseDown = true;
-    this.handlePos = getMousePos(e);
+    this.handlePos = getMousePos(e, this.element);
     var target = getTarget(e);
     if (target.className == 'innerPalette') {
         $('.paletteHandle').css({left: this.handlePos.x, top: this.handlePos.y});
@@ -30,7 +30,7 @@ Palette.prototype.OnMouseDown = function(e) {
     }
 }
 Palette.prototype.OnMouseMove = function(e) {
-    this.handlePos = getMousePos(e);
+    this.handlePos = getMousePos(e, this.element);
     var target = getTarget(e);
     if (this.isMouseDown && target.className == 'innerPalette') {
         $('.paletteHandle').css({left: this.handlePos.x, top: this.handlePos.y});

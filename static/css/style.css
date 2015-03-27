@@ -1,44 +1,51 @@
-html, body, h1, h2, h3, p {
+/*html, body, h1, h2, h3, p {
     margin: 0;
     padding: 0;
 }
 body {
     font: 14px Arial;
     background-color: #999;
-}
+}*/
 #container {
     width: 1000px;
     margin: 10px auto;
 }
 #title {
-    color:#A1FFFF;
+    /*color:#A1FFFF;
     font-size:18px;
-    font-weight:700;
+    font-weight:700;*/
+    margin: 0px 20px 0px 0px;
+    float: left;
+}
+#github {
+	float: right;
 }
 #footer {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    /*margin-top: 5px;
+    margin-bottom: 5px;*/
     color: rgb(51, 51, 51);
     font-weight: bold;
 }
-#footer a {
+/*#footer a {
     text-decoration: none;
     color: rgb(51, 51, 51);
-}
-ul#toolbox {
+}*/
+#toolbox {
+	float:left;
     list-style-type:none;
 	margin:0px;
 	padding:5px 0;
 }
 ul#toolbox  li a, ul#toolbox  li a:visited {
-    text-decoration: none;
+    /*text-decoration: none;
     color: white;
     margin:0px;
 	padding:5px;
     display: block;
-    background-color: blue;
+    background-color: blue;*/
+    margin:5px;
     overflow: auto;
 }
 ul#toolbox li {
@@ -48,6 +55,11 @@ ul#toolbox li {
 ul#toolbox li a.active {
 	background-color: orange;
 }
+#whiteboard-container {
+	margin-top: 10px;
+	clear: both;
+}
 .whiteboard {
     background-color: white;
+    border: 2px solid rgb(200, 200, 200);
 }

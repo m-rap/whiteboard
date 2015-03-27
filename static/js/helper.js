@@ -13,8 +13,8 @@ function getMousePos(evt, elem) {
 }
 
 function getRelativeOffset(Elem) {
-    if (!(Elem instanceof HTMLCanvasElement))
-		return {x: 0, y: 0};
+    //if (!(Elem instanceof HTMLCanvasElement))
+	//	return {x: 0, y: 0};
     var offsetLeft = 0;
     var offsetTop = 0;
     do {

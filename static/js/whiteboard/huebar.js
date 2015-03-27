@@ -16,7 +16,7 @@ function HueBar(id) {
 }
 HueBar.prototype.OnMouseDown = function(e) {
     this.isMouseDown = true;
-    var pos = getMousePos(e);
+    var pos = getMousePos(e, this.element);
     var target = getTarget(e);
     if (target.id == 'hueBar') {
         $('.hueBarHandle').css({top: pos.y});
@@ -24,7 +24,7 @@ HueBar.prototype.OnMouseDown = function(e) {
     }
 }
 HueBar.prototype.OnMouseMove = function(e) {
-    var pos = getMousePos(e);
+    var pos = getMousePos(e, this.element);
     var target = getTarget(e);
     if (this.isMouseDown && target.id == 'hueBar') {
         $('.hueBarHandle').css({top: pos.y});

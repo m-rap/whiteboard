@@ -3,8 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Whiteboard</title>
+        
+        <!--<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery-1.8.2.min.js"></script>-->
+        
+        <link href="<?php echo base_url(); ?>ext/Flat-UI/dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>ext/Flat-UI/dist/css/flat-ui.min.css" rel="stylesheet">
+        <script type="text/javascript" src="<?php echo base_url(); ?>ext/Flat-UI/dist/js/vendor/jquery.min.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>static/css/style.css" />
-        <script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery-1.8.2.min.js"></script>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>static/css/popup.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>static/css/colorpicker.css" />
         <script type="text/javascript" src="<?php echo base_url(); ?>static/js/helper.js"></script>
@@ -15,7 +21,7 @@
             var whiteBoard1;
             var colorPicker;
             function ChangeState(state) {
-                $('ul#toolbox li a.active').removeClass('active');
+                $('#toolbox a.active').removeClass('active');
                 whiteBoard1.currentState = whiteBoard1.stateManager[state];
                 $('a#' + state).addClass('active');
                 return false;
@@ -45,37 +51,37 @@
             });
         </script>
     </head>
-    <body>
+    <body>		
         <div id="backgroundPopup"></div>
         <div id="container">
-            <h1 id="title">Whiteboard</h1>
-            <ul id="toolbox">
-                <li><a href="" id="pencilState" onclick="return ChangeState('pencilState');">Pencil</a></li>
-                <li><a href="" id="lineState" onclick="return ChangeState('lineState');">Line</a></li>
-                <li>
-                    <a href="" id="colorButton">
-                        <div>Color</div>
-                        <div id="activeColor"></div>
-                    </a>
-                    <div id="colorPicker">
-                        <div class="colorPicker">
-                            <div id="palette" class="palette">
-                                <div class="innerPalette">
-                                    <div class="paletteHandle"></div>
-                                </div>
-                            </div>
-                            <div id="hueBar" class="hueBar">
-                                <div class="hueBarHandle"></div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div><canvas id="whiteboard1" class="whiteboard" width="1000" height="550"></canvas></div>
+            <h3 id="title">Whiteboard</h3>
+            <div id="toolbox" class="btn-group">
+                <a href="" id="pencilState" onclick="return ChangeState('pencilState');" class="btn btn-primary">Pencil</a>
+                <a href="" id="lineState" onclick="return ChangeState('lineState');" class="btn btn-primary">Line</a>
+                <a href="" id="colorButton" class="btn btn-primary">
+                    <div>Color</div>
+                    <div id="activeColor"></div>
+                </a>
+            </div>
+            <a id="github" href="https://github.com/m-rap/whiteboard">GitHub</a>
+            <div id="whiteboard-container"><canvas id="whiteboard1" class="whiteboard" width="1000" height="550"></canvas></div>
             <div id="footer">
-                <a href="https://github.com/m-rap/whiteboard">GitHub</a>
             </div>
         </div>
+        
+        <div id="colorPicker">
+			<div class="colorPicker">
+				<div id="palette" class="wb-palette">
+					<div class="innerPalette">
+						<div class="paletteHandle"></div>
+					</div>
+				</div>
+				<div id="hueBar" class="hueBar">
+					<div class="hueBarHandle"></div>
+				</div>
+			</div>
+		</div>
+        
         <div id="popupContact">
             <h1>Welcome to Whiteboard Application</h1>
             Please insert room name.

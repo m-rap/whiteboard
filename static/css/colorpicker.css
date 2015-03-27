@@ -11,14 +11,14 @@
 #colorPicker {
     position: absolute;
     display: none;
-    background-color: orange;
+    background-color: rgb(26, 188, 156);
     padding: 5px 10px;
 }
 .colorPicker {
     position: relative;
     overflow: auto;
 }
-.palette {
+.wb-palette {
     float: left;
     width: 256px;
     height: 256px;
@@ -53,7 +53,7 @@
 .hueBarHandle {
     position: absolute;
     width: 25px;
-    height: 2px;
+    height: 3px;
     background-color: blue;
     border: 1px solid white;
 }
