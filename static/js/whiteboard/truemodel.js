@@ -7,9 +7,10 @@ function TrueModel() {
     this.loadUrl = null;
     this.roomName = null;
     this.autoUpdateStarted = false;
+    this.socketIO = null;
 }
 TrueModel.prototype.Sync = function(data) {
-	if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array) {
+	if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array && data.version > this.version) {
 		for (i in data.sheets) {
 			for (j in data.sheets[i].lines) {
 				this.sheets[i].lines.push(data.sheets[i].lines[j]);
@@ -23,17 +24,21 @@ TrueModel.prototype.AddLines = function(sheet, lines, onComplete) {
     var data = {sheets:[new Sheet(null, sheet.id)]};
     for (i in lines)
         data.sheets[0].lines.push(lines[i]);
-    var jsonString = JSON.stringify(data);
     var that = this;
-    $.post(that.saveUrl, JSON.parse(jsonString), function(version) {
-        that.StopAutoUpdate();
-        data.version = version;
-        that.Sync(data);
-        that.Load((typeof(onComplete) == 'function') ? onComplete() : function() {});
-        setTimeout(function() {
-            that.StartAutoUpdate();
-        }, 500);
-    });
+    if (this.socketIO != null) {
+		this.socketIO.emit('add lines', {room: this.roomName, data: data});
+	} else {
+		var jsonString = JSON.stringify(data);
+		$.post(that.saveUrl, JSON.parse(jsonString), function(version) {
+			that.StopAutoUpdate();
+			data.version = version;
+			that.Sync(data);
+			that.Load((typeof(onComplete) == 'function') ? onComplete() : function() {});
+			setTimeout(function() {
+				that.StartAutoUpdate();
+			}, 500);
+		});
+	}
 }
 TrueModel.prototype.Load = function(onComplete) {
     var that = this;
@@ -57,4 +62,13 @@ TrueModel.prototype.autoUpdate = function() {
             that.autoUpdate();
         }, 500);
     });
+}
+TrueModel.prototype.StartSocketIO = function() {
+	this.socketIO = io.connect('http://localhost:1235');
+	this.socketIO.emit('start', {room: this.roomName, version: this.version});
+	
+	var that = this;
+	this.socketIO.on('load', function(data) {
+		that.Sync(data);
+	});
 }

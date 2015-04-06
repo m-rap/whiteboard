@@ -16,6 +16,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>static/js/helper.js"></script>
         <script type="text/javascript" src="<?php echo site_url('script'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>static/js/popup.js"></script>
+        <script type="text/javascript" src="http://localhost:1235/socket.io/socket.io.js"></script>
         <script type="text/javascript">
             var trueModel;
             var whiteBoard1;
@@ -44,12 +45,15 @@
                     whiteBoard1.model = trueModel.sheets[0];
                     whiteBoard1.trueModel = trueModel;
                     trueModel.sheets[0].Attach(whiteBoard1);
-                    trueModel.StartAutoUpdate();
+                    //trueModel.StartAutoUpdate();
+                    trueModel.StartSocketIO();
                     $('a#' + whiteBoard1.currentState.name).addClass('active');
                     colorPicker = new ColorPicker('colorPicker', new Palette('palette'), new HueBar('hueBar'), whiteBoard1, 'colorButton');
                 }
             });
         </script>
+        
+        
     </head>
     <body>		
         <div id="backgroundPopup"></div>
