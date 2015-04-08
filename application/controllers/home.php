@@ -28,7 +28,7 @@ class Home extends CI_Controller {
         }
         
         $roomName = $this->input->post('roomName');
-        $this->roomModel->Create($roomName);
+        //$this->roomModel->Create($roomName);
         $this->load->view('home', array('roomName' => $roomName));
     }
     

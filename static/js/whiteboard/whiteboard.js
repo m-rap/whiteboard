@@ -35,13 +35,10 @@ WhiteBoard.prototype.OnMouseUp = function(e, elem) {
     var mousePos = getMousePos(e, elem);
     this.currentState.MouseUp(mousePos.x, mousePos.y);
 }
-WhiteBoard.prototype.OnPaint = function() {
-    this.model.Draw(this.context);
-    this.currentState.Draw(this.context);
-}
 WhiteBoard.prototype.Refresh = function() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.OnPaint();
+    this.model.Draw(this.context);
+    this.currentState.Draw(this.context);
 }
 WhiteBoard.prototype.UpdateModel = function() {
     this.Refresh();
