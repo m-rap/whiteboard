@@ -8,7 +8,7 @@
     left:0;
     background:#000000;
     border:1px solid #cecece;
-    z-index:1;
+    z-index:12;
 }
 #popupContact{
     display:none;
@@ -17,7 +17,7 @@
     /*background: url(../images/panelShowUp.png) no-repeat;*/
     background-color: #FFF;
     border: 1px solid black;
-    z-index:2;
+    z-index:13;
     padding:12px;
     font-size:13px;
 }
