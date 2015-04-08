@@ -41,7 +41,7 @@
                     trueModel.saveUrl = '<?php echo site_url("room/save/$roomName"); ?>';
                     trueModel.loadUrl = '<?php echo site_url("room/load/$roomName"); ?>';
                     trueModel.roomName = '<?php echo $roomName; ?>';
-                    whiteBoard1 = new WhiteBoard('whiteboard1');
+                    whiteBoard1 = new WhiteBoard('whiteboard-main', 'whiteboard-helper');
                     whiteBoard1.model = trueModel.sheets[0];
                     whiteBoard1.trueModel = trueModel;
                     trueModel.sheets[0].Attach(whiteBoard1);
@@ -68,7 +68,10 @@
                 </a>
             </div>
             <a id="github" href="https://github.com/m-rap/whiteboard">GitHub</a>
-            <div id="whiteboard-container"><canvas id="whiteboard1" class="whiteboard" width="1000" height="550"></canvas></div>
+            <div id="whiteboard-container">
+				<canvas id="whiteboard-main" class="whiteboard" width="1000" height="550"></canvas>
+				<canvas id="whiteboard-helper" class="whiteboard-helper" width="1000" height="550"></canvas>
+			</div>
             <div id="footer" class="footer">
 				Theme by <a href="http://designmodo.github.io/Flat-UI/docs/getting-started.html">Flat-UI</a>
             </div>

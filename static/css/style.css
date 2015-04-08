@@ -61,6 +61,14 @@ ul#toolbox li a.active {
 	clear: both;
 }
 .whiteboard {
+	position: absolute;
     background-color: white;
     border: 2px solid rgb(200, 200, 200);
+    z-index: 10;
+}
+.whiteboard-helper {
+	position: relative;
+    background-color: transparent;
+    border: 2px solid transparent;
+    z-index: 11;
 }

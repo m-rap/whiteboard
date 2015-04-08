@@ -27,7 +27,10 @@ LineState.prototype.MouseUp = function(x, y) {
     this.origin = null;
     if (this.helperLine != null) {
         var that = this;
-        this.mediator.trueModel.AddLines(this.mediator.model, [this.helperLine], function() { that.helperLine = null; });
+        this.mediator.trueModel.AddLines(this.mediator.model, [this.helperLine], function() {
+			that.helperLine = null;
+			that.mediator.trueModel.sheets[0].Notify();
+		});
     }
 }
 

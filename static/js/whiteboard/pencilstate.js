@@ -1,8 +1,8 @@
-function PencilState(mediator) {
+function PencilState(whiteboard) {
     this.name = 'pencilState';
     this.origin = null;
     this.isMouseDown = false;
-    this.mediator = mediator;
+    this.mediator = whiteboard;
     this.helperLines = new Array();
 }
 PencilState.prototype.mediator = null;
@@ -32,6 +32,7 @@ PencilState.prototype.MouseUp = function(x, y) {
 		var length = this.helperLines.length;
 		this.mediator.trueModel.AddLines(this.mediator.model, this.helperLines, function() {
 			that.helperLines.splice(0, length);
+			that.mediator.trueModel.sheets[0].Notify();
 		});
     }
 }

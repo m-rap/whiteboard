@@ -13,7 +13,7 @@ TrueModel.prototype.Sync = function(data) {
 	if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array && data.version > this.version) {
 		for (i in data.sheets) {
 			for (j in data.sheets[i].lines) {
-				this.sheets[i].lines.push(data.sheets[i].lines[j]);
+				this.sheets[i].newLines.push(data.sheets[i].lines[j]);
 			}
 			this.sheets[i].Notify();
 		}
