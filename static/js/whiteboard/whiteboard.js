@@ -36,14 +36,20 @@ function WhiteBoard(mainId, helperId) {
     });
 }
 WhiteBoard.prototype.OnMouseDown = function(e, elem) {
+	if (!this.trueModel.ready)
+		return;
     var mousePos = getMousePos(e, elem);
     this.currentState.MouseDown(mousePos.x, mousePos.y);
 }
 WhiteBoard.prototype.OnMouseMove = function(e, elem) {
+    if (!this.trueModel.ready)
+		return;
     var mousePos = getMousePos(e, elem);
     this.currentState.MouseMove(mousePos.x, mousePos.y);
 }
 WhiteBoard.prototype.OnMouseUp = function(e, elem) {
+    if (!this.trueModel.ready)
+		return;
     var mousePos = getMousePos(e, elem);
     this.currentState.MouseUp(mousePos.x, mousePos.y);
 }

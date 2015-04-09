@@ -8,6 +8,7 @@ function TrueModel() {
     this.roomName = null;
     this.autoUpdateStarted = false;
     this.socketIO = null;
+    this.ready = false;
 }
 TrueModel.prototype.Sync = function(data) {
 	if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array && data.version > this.version) {
@@ -26,7 +27,13 @@ TrueModel.prototype.AddLines = function(sheet, lines, onComplete) {
         data.sheets[0].lines.push(lines[i]);
     var that = this;
     if (this.socketIO != null) {
-		this.socketIO.emit('add lines', {room: this.roomName, data: data});
+		this.socketIO.emit('submit', {room: this.roomName, data: data});
+		
+		this.socketIO.removeListener('submitSuccess');
+		this.socketIO.on('submitSuccess', function() {
+			if (typeof(onComplete) == 'function')
+				onComplete();
+		});
 	} else {
 		var jsonString = JSON.stringify(data);
 		$.post(that.saveUrl, JSON.parse(jsonString), function(version) {
@@ -70,5 +77,6 @@ TrueModel.prototype.StartSocketIO = function() {
 	var that = this;
 	this.socketIO.on('load', function(data) {
 		that.Sync(data);
+		that.ready = (data.version == data.lastVersion);
 	});
 }
