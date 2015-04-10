@@ -64,11 +64,11 @@ ul#toolbox li a.active {
 	position: absolute;
     background-color: white;
     border: 2px solid rgb(200, 200, 200);
-    z-index: 10;
+    z-index: 1;
 }
 .whiteboard-helper {
 	position: relative;
     background-color: transparent;
     border: 2px solid transparent;
-    z-index: 11;
+    z-index: 2;
 }
