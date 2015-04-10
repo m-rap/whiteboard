@@ -59,6 +59,7 @@ ul#toolbox li a.active {
 #whiteboard-container {
 	margin-top: 10px;
 	clear: both;
+	position: relative;
 }
 .whiteboard {
 	position: absolute;

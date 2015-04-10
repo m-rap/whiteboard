@@ -17,16 +17,10 @@ function WhiteBoard(mainId, helperId) {
     
     var that = this;
     
-    this.canvas.addEventListener('mousedown', function(e) {
-        that.OnMouseDown(e, that.canvas);
-    });
     this.helperCanvas.addEventListener('mousedown', function(e) {
         that.OnMouseDown(e, that.helperCanvas);
     });
     
-    this.canvas.addEventListener('mousemove', function(e) {
-        that.OnMouseMove(e, that.canvas);
-    });
     this.helperCanvas.addEventListener('mousemove', function(e) {
         that.OnMouseMove(e, that.helperCanvas);
     });

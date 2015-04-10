@@ -1,5 +1,5 @@
 function getMousePos(evt, elem) {
-    if (evt.offsetX == undefined) {
+	if (evt.offsetX == undefined) {
         var relOff = getRelativeOffset(elem);
         return {
             x: evt.layerX - relOff.x,
@@ -13,8 +13,8 @@ function getMousePos(evt, elem) {
 }
 
 function getRelativeOffset(Elem) {
-    //if (!(Elem instanceof HTMLCanvasElement))
-	//	return {x: 0, y: 0};
+    if (Elem instanceof HTMLCanvasElement)
+		return {x: 0, y: 0};
     var offsetLeft = 0;
     var offsetTop = 0;
     do {

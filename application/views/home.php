@@ -16,7 +16,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>static/js/helper.js"></script>
         <script type="text/javascript" src="<?php echo site_url('script'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>static/js/popup.js"></script>
-        <script type="text/javascript" src="http://whiteboard-backend-nodejs-m-rap.c9.io/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="http://m-rap.koding.io:8080/socket.io/socket.io.js"></script>
         <script type="text/javascript">
             var trueModel;
             var whiteBoard1;
