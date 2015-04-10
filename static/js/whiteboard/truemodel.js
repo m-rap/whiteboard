@@ -72,11 +72,17 @@ TrueModel.prototype.autoUpdate = function() {
 }
 TrueModel.prototype.StartSocketIO = function() {
 	this.socketIO = io.connect('https://whiteboard-backend-nodejs-m-rap.c9.io/');
-	this.socketIO.emit('start', {room: this.roomName, version: this.version});
+	this.socketIO.emit('start', {room: this.roomName});
 	
 	var that = this;
+	this.socketIO.on('start', function() {
+		that.socketIO.emit('load', {room: that.roomName, version: that.version});
+	});
 	this.socketIO.on('load', function(data) {
+		if (data.version < data.lastVersion)
+			that.socketIO.emit('load', {room: that.roomName, version: that.version});
+		else
+			that.ready = true;
 		that.Sync(data);
-		that.ready = (data.version == data.lastVersion);
 	});
 }
