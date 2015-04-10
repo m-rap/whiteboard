@@ -71,10 +71,28 @@ TrueModel.prototype.autoUpdate = function() {
     });
 }
 TrueModel.prototype.StartSocketIO = function() {
-	this.socketIO = io.connect('http://whiteboard-backend-nodejs-m-rap.c9.io/');
-	this.socketIO.emit('start', {room: this.roomName});
+	var url = 'http://whiteboard-backend-nodejs-m-rap.c9.io/';
+	this.socketIO = io.connect(url);
 	
 	var that = this;
+	
+	var intervalID = null;
+	var tryReconnect = function(){
+		if (that.socketIO.connected === false) {// &&
+			//that.socketIO.socket.connecting === false) {
+			// use a connect() or reconnect() here if you want
+			clearInterval(intervalID);
+			that.StartSocketIO();
+			return;
+	   }
+	}
+	
+	intervalID = setInterval(tryReconnect, 5000);
+	
+	this.socketIO.on('connect', function() {
+		//clearInterval(intervalID);
+		that.socketIO.emit('start', {room: that.roomName});
+	});
 	this.socketIO.on('start', function() {
 		that.socketIO.emit('load', {room: that.roomName, version: that.version});
 	});
