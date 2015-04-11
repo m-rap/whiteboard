@@ -10,14 +10,16 @@ function TrueModel() {
     this.socketIO = null;
     this.ready = false;
     
+    this.msgContainer = document.getElementById('messages-container');
+    
     this.focused = true;
     var that = this;
+	window.onblur = function() {
+		that.focused = false;
+	}
     window.onfocus = function() {
 		that.focused = true;
 		document.title = 'Whiteboard';
-	}
-	window.onblur = function() {
-		that.focused = false;
 	}
     $('#chatform').submit(function(){
 		that.socketIO.emit('chat message', $('#m').val());
@@ -124,6 +126,7 @@ TrueModel.prototype.StartSocketIO = function() {
 	
 	this.socketIO.on('chat message', function(msg){
 		$('#messages').append($('<li>').text(msg));
+		that.msgContainer.scrollTop = that.msgContainer.scrollHeight;
 		if (!that.focused)
 			document.title = '(1) Whiteboard';
 	});
