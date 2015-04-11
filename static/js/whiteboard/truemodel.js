@@ -10,7 +10,15 @@ function TrueModel() {
     this.socketIO = null;
     this.ready = false;
     
+    this.focused = true;
     var that = this;
+    window.onfocus = function() {
+		that.focused = true;
+		document.title = 'Whiteboard';
+	}
+	window.onblur = function() {
+		that.focused = false;
+	}
     $('#chatform').submit(function(){
 		that.socketIO.emit('chat message', $('#m').val());
 		$('#m').val('');
@@ -104,6 +112,8 @@ TrueModel.prototype.StartSocketIO = function() {
 		that.socketIO.emit('load', {room: that.roomName, version: that.version});
 	});
 	this.socketIO.on('load', function(data) {
+		if (!that.focused)
+			document.title = '(1) Whiteboard';
 		if (data.version < data.lastVersion)
 			that.socketIO.emit('load', {room: that.roomName, version: data.version});
 		else
@@ -114,5 +124,7 @@ TrueModel.prototype.StartSocketIO = function() {
 	
 	this.socketIO.on('chat message', function(msg){
 		$('#messages').append($('<li>').text(msg));
+		if (!that.focused)
+			document.title = '(1) Whiteboard';
 	});
 }
