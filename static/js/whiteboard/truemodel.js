@@ -13,6 +13,8 @@ function TrueModel() {
     this.msgContainer = document.getElementById('messages-container');
     
     this.focused = true;
+    this.connecting = false;
+    
     var that = this;
 	window.onblur = function() {
 		that.focused = false;
@@ -88,6 +90,7 @@ TrueModel.prototype.autoUpdate = function() {
     });
 }
 TrueModel.prototype.StartSocketIO = function() {
+	this.connecting = true;
 	var url = 'http://whiteboard-backend-nodejs-m-rap.c9.io/';
 	this.socketIO = io.connect(url);
 	
@@ -95,19 +98,19 @@ TrueModel.prototype.StartSocketIO = function() {
 	
 	var intervalID = null;
 	var tryReconnect = function(){
-		if (that.socketIO.connected === false) {// &&
-			//that.socketIO.socket.connecting === false) {
+		if (!that.socketIO.connected && !that.connecting) {
 			// use a connect() or reconnect() here if you want
-			clearInterval(intervalID);
-			that.StartSocketIO();
+			//clearInterval(intervalID);
+			that.socketIO.connect();
 			return;
 	   }
 	}
 	
-	intervalID = setInterval(tryReconnect, 5000);
+	intervalID = setInterval(tryReconnect, 2000);
 	
 	this.socketIO.on('connect', function() {
 		//clearInterval(intervalID);
+		that.connecting = false;
 		that.socketIO.emit('start', {room: that.roomName});
 	});
 	this.socketIO.on('start', function() {
