@@ -25,7 +25,7 @@ function WhiteBoard(mainId, helperId) {
         that.OnMouseMove(e, that.helperCanvas);
     });
     
-    document.addEventListener('mouseup', function(e) {
+    window.addEventListener('mouseup', function(e) {
         that.OnMouseUp(e, that.helperCanvas);
     });
 }

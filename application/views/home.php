@@ -68,9 +68,20 @@
                 </a>
             </div>
             <a id="github" href="https://github.com/m-rap/whiteboard">GitHub</a>
-            <div id="whiteboard-container">
-				<canvas id="whiteboard-main" class="whiteboard" width="1000" height="550"></canvas>
-				<canvas id="whiteboard-helper" class="whiteboard-helper" width="1000" height="550"></canvas>
+            
+            <div id="main-container">
+				<div id="chatbox">
+					<div id="messages-container">
+						<ul id="messages"></ul>
+					</div>
+					<form id="chatform" action="">
+						<input id="m" autocomplete="off" /><button>Send</button>
+					</form>
+				</div>
+				<div id="whiteboard-container">
+					<canvas id="whiteboard-main" class="whiteboard" width="1000" height="550"></canvas>
+					<canvas id="whiteboard-helper" class="whiteboard-helper" width="1000" height="550"></canvas>
+				</div>
 			</div>
             <div id="footer" class="footer">
 				Theme by <a href="http://designmodo.github.io/Flat-UI/docs/getting-started.html">Flat-UI</a>

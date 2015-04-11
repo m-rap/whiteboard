@@ -9,6 +9,13 @@ function TrueModel() {
     this.autoUpdateStarted = false;
     this.socketIO = null;
     this.ready = false;
+    
+    var that = this;
+    $('#chatform').submit(function(){
+		that.socketIO.emit('chat message', $('#m').val());
+		$('#m').val('');
+		return false;
+	});
 }
 TrueModel.prototype.Sync = function(data) {
 	if (data != null && typeof(data.sheets) != 'undefined' && data.sheets != null && data.sheets instanceof Array && data.version > this.version) {
@@ -102,5 +109,10 @@ TrueModel.prototype.StartSocketIO = function() {
 		else
 			that.ready = true;
 		that.Sync(data);
+	});
+	
+	
+	this.socketIO.on('chat message', function(msg){
+		$('#messages').append($('<li>').text(msg));
 	});
 }
