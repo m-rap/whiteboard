@@ -1,10 +1,17 @@
 function getMousePos(evt, elem) {
 	if (evt.offsetX == undefined) {
-        var relOff = getRelativeOffset(elem);
-        return {
-            x: evt.layerX - relOff.x,
-            y: evt.layerY - relOff.y
-        };
+		if (evt.layerX == undefined) {
+			var relOff = getRelativeOffset(elem);
+			return {
+				x: evt.clientX - relOff.x,
+				y: evt.clientY - relOff.y
+			};
+		} else {
+			return {
+				x: evt.layerX,
+				y: evt.layerY,
+			}
+		}
     }
     return {
         x: evt.offsetX,

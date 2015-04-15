@@ -10,6 +10,8 @@ function TrueModel() {
     this.socketIO = null;
     this.ready = false;
     
+    this.clients = new Array();
+    this.currentClient = null;
     this.msgContainer = document.getElementById('messages-container');
     
     this.focused = true;
@@ -23,8 +25,12 @@ function TrueModel() {
 		that.focused = true;
 		document.title = 'Whiteboard';
 	}
-    $('#chatform').submit(function(){
-		that.socketIO.emit('chat message', $('#m').val());
+    $('#chatform').submit(function(event){
+		event.preventDefault();
+		var msg = $('#m').val();
+		that.socketIO.emit('chat message', {id: that.currentClient.id, msg: msg});
+		var li = that.currentClient.CreateMsg(msg);
+		$('#messages').append(li);
 		$('#m').val('');
 		return false;
 	});
@@ -113,7 +119,22 @@ TrueModel.prototype.StartSocketIO = function() {
 		that.connecting = false;
 		that.socketIO.emit('start', {room: that.roomName});
 	});
-	this.socketIO.on('start', function() {
+	this.socketIO.on('start', function(data) {
+		var id = data.clientInfo.id;
+		var color = data.clientInfo.color;
+		for (var i in that.clients) {
+			if (that.clients[i].id == id) {
+				that.clients[i].Dispose();
+				that.clients.splice(i, 1);
+			}
+		}
+		that.currentClient = new Client(id, color);
+		if (data.clients instanceof Array) {
+			for (var i in data.clients) {
+				that.clients.push(new Client(data.clients[i].id, data.clients[i].color));
+			}
+		}
+		
 		that.socketIO.emit('load', {room: that.roomName, version: that.version});
 	});
 	this.socketIO.on('load', function(data) {
@@ -126,11 +147,36 @@ TrueModel.prototype.StartSocketIO = function() {
 		that.Sync(data);
 	});
 	
-	
-	this.socketIO.on('chat message', function(msg){
-		$('#messages').append($('<li>').text(msg));
-		that.msgContainer.scrollTop = that.msgContainer.scrollHeight;
-		if (!that.focused)
-			document.title = '(1) Whiteboard';
+	this.socketIO.on('new client', function(data) {
+		if (data.id != that.currentClient.id) {
+			var id = data.id;
+			var color = data.color;
+			that.clients.push(new Client(id, color));
+		}
+	});
+	this.socketIO.on('client disconnected', function(id) {
+		for (var i in that.clients) {
+			if (that.clients[i].id == id) {
+				that.clients[i].Dispose();
+				that.clients.splice(i, 1);
+				break;
+			}
+		}
+	});
+	this.socketIO.on('chat message', function(data){
+		var id = data.id;
+		var msg = data.msg;
+		var client = null;
+		for (var i in that.clients) {
+			if (that.clients[i].id == id) {
+				client = that.clients[i];
+				var li = client.CreateMsg(msg);
+				$('#messages').append(li);
+				that.msgContainer.scrollTop = that.msgContainer.scrollHeight;
+				if (!that.focused)
+					document.title = '(1) Whiteboard';
+				break;
+			}
+		}
 	});
 }
