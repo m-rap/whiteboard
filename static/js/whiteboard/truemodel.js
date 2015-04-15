@@ -31,6 +31,7 @@ function TrueModel() {
 		that.socketIO.emit('chat message', {id: that.currentClient.id, msg: msg});
 		var li = that.currentClient.CreateMsg(msg);
 		$('#messages').append(li);
+		that.msgContainer.scrollTop = that.msgContainer.scrollHeight;
 		$('#m').val('');
 		return false;
 	});
