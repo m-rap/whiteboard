@@ -107,6 +107,8 @@ TrueModel.prototype.StartSocketIO = function() {
 		if (!that.socketIO.connected && !that.connecting) {
 			// use a connect() or reconnect() here if you want
 			//clearInterval(intervalID);
+			that.currentClient = null;
+			that.clients = new Array();
 			that.socketIO.connect();
 			return;
 	   }
