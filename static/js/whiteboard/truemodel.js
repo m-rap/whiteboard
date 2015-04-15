@@ -110,6 +110,7 @@ TrueModel.prototype.StartSocketIO = function() {
 			//clearInterval(intervalID);
 			that.currentClient = null;
 			that.clients = new Array();
+			$('#clients').html('');
 			that.socketIO.connect();
 			return;
 	   }
@@ -132,9 +133,12 @@ TrueModel.prototype.StartSocketIO = function() {
 			}
 		}
 		that.currentClient = new Client(id, color);
+		$('#clients').append(that.currentClient.CreateLabel(true));
 		if (data.clients instanceof Array) {
 			for (var i in data.clients) {
-				that.clients.push(new Client(data.clients[i].id, data.clients[i].color));
+				var client = new Client(data.clients[i].id, data.clients[i].color);
+				that.clients.push(client);
+				$('#clients').append(client.CreateLabel());
 			}
 		}
 		
@@ -154,7 +158,9 @@ TrueModel.prototype.StartSocketIO = function() {
 		if (data.id != that.currentClient.id) {
 			var id = data.id;
 			var color = data.color;
-			that.clients.push(new Client(id, color));
+			var client = new Client(id, color);
+			that.clients.push(client);
+			$('#clients').append(client.CreateLabel());
 		}
 	});
 	this.socketIO.on('client disconnected', function(id) {
@@ -162,6 +168,7 @@ TrueModel.prototype.StartSocketIO = function() {
 			if (that.clients[i].id == id) {
 				that.clients[i].Dispose();
 				that.clients.splice(i, 1);
+				$('#clients li.client' + id).remove();
 				break;
 			}
 		}

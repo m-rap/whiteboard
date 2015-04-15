@@ -71,6 +71,9 @@
             
             <div id="main-container">
 				<div id="chatbox">
+					<div id="clientlist-container">
+						<ul id="clients"></ul>
+					</div>
 					<div id="messages-container">
 						<ul id="messages"></ul>
 					</div>

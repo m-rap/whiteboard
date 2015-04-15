@@ -13,6 +13,12 @@ Client.prototype.CreateClass = function() {
 Client.prototype.CreateMsg = function(msg) {
 	return $('<li class="client' + this.id + '">').text(msg);
 }
+Client.prototype.CreateLabel = function(current) {
+	if (current)
+		return $('<li class="client' + this.id + '">').text('client ' + this.id + ' (you)');
+	else
+		return $('<li class="client' + this.id + '">').text('client ' + this.id);
+}
 Client.prototype.Dispose = function() {
 	document.body.removeChild(this.style);
 }
